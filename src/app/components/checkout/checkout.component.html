@@ -1,0 +1,147 @@
+<ngx-spinner
+  bdColor="rgba(151, 149, 149,0.4)"
+  size="large"
+  color="orange"
+  type="ball-clip-rotate-pulse"
+>
+  <p style="font-size: 20px; color: black">Booking Order...</p>
+</ngx-spinner>
+
+<div class="section" *ngIf="cartTotal >0">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+
+      <div class="col-md-7">
+        <!-- Billing Details -->
+        <div class="billing-details">
+          <div class="section-title">
+            <h3 class="title">Billing address:</h3>
+          </div>
+          <div> <b>Please make sure to fill the Form with correct informations, and read our <a routerLink="/terms"><b>terms & conditions:</b></a></b></div>
+          <div class="form-group">
+            <input pattern="[a-zA-Z]*" minlength="3" class="input form-control" type="text" name="first-name" placeholder="First Name" id="fname" required #fname="ngModel"    [(ngModel)]="order.fname">
+              <span *ngIf="fname.invalid && fname.touched" class="error">name is not valid</span>
+          </div>
+
+          <div class="form-group">
+            <input pattern="[a-zA-Z]*" minlength="3"  class="input form-control" type="text" name="last-name" placeholder="Last Name" id="lname" required #lname="ngModel"    [(ngModel)]="order.lname">
+            <span *ngIf="lname.invalid && lname.touched" class="error">Last name is not valid</span>
+          </div>
+          <div class="form-group">
+            <input class="input form-control" type="email" name="email" placeholder="Email" required #email="ngModel" email [(ngModel)]="order.email">
+            <span *ngIf="email.invalid && email.touched" class="error">Email is not valid</span>
+          </div>
+          <div class="form-group">
+            <input minlength="3"  class="input form-control" type="text" name="address" placeholder="Address"  required #address="ngModel" [(ngModel)]="order.adress">
+            <span *ngIf="address.invalid && address.touched" class="error">Address is not valid</span>
+          </div>
+          <div class="form-group">
+            <input pattern="[a-zA-Z]*" minlength="3" class="input form-control" type="text" name="country" placeholder="City" required #country="ngModel" [(ngModel)]="order.country">
+            <span *ngIf="country.invalid && country.touched" class="error">City is not valid</span>
+          </div>
+
+          <div class="form-group">
+            <input pattern="^[0-9]*$"  minlength="10" maxlength="10"  class="input form-control" type="tel" name="tel" placeholder="Telephone" required #tel="ngModel"  [(ngModel)]="order.phone">
+            <span *ngIf="tel.invalid && tel.touched" class="error">Phone number is not valid</span>
+          </div>
+<!--          <div class="form-group">-->
+<!--            <div class="input-checkbox">-->
+<!--              <input type="checkbox" id="create-account">-->
+
+<!--&lt;!&ndash;              <div class="caption">&ndash;&gt;-->
+<!--&lt;!&ndash;                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                <input class="input" type="password" name="password" placeholder="Enter Your Password">&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+        <!-- /Billing Details -->
+
+        <!-- Shiping Details -->
+
+
+        <!-- Order notes -->
+        <div class="order-notes">
+          <textarea class="input" placeholder="Order Notes" id="ordernotes" required [(ngModel)]="order.description"></textarea>
+        </div>
+
+        <!-- /Order notes -->
+      </div>
+
+      <!-- Order Details -->
+      <div class="col-md-5 order-details bx">
+        <div class="section-title text-center">
+          <h3 class="title">Your Order</h3>
+        </div>
+        <div class="order-summary">
+          <div class="order-col">
+            <div><strong>PRODUCT</strong></div>
+            <div><strong>TOTAL</strong></div>
+          </div>
+          <div class="order-products">
+            <div class="order-col" *ngFor=" let c of cartData.data">
+              <div>{{c.numInCart}}x {{c.product.name}}</div>
+              <div>{{(c.product.price * c.numInCart) | currency:'EUR':true}}</div>
+            </div>
+          </div>
+          <div class="order-col">
+            <div>Shiping</div>
+            <div><strong>FREE</strong></div>
+          </div>
+          <div class="order-col">
+            <div><strong>TOTAL:</strong></div>
+            <div><strong class="order-total">{{cartTotal | currency:'EUR':true}}</strong></div>
+          </div>
+        </div>
+
+<!--        <div id="paypalButton"></div>-->
+
+
+
+<!--      <div id="paypal_btn"> Place Your Order Now:</div>-->
+
+
+        <div class="input-checkbox mb-3">
+
+            <span></span>
+            By Placing the Order you agree that you read and accept the <a routerLink="/terms">terms & conditions:</a>
+
+        </div>
+
+        <div class="mb-3">
+          <button (click)="pay(cartData.total)" class="btn btn-primary btn-block">Pay With Stripe</button>
+        </div>
+
+        <!--suppress AngularUndefinedBinding -->
+        <google-pay-button
+          environment="TEST"
+          buttonType="buy"
+          buttonColor="black"
+          [paymentRequest]="paymentRequest"
+          (loadpaymentdata)="onLoadPaymentData($event)"
+          (error)="onError($event)"
+          [paymentAuthorizedCallback]="onPaymentDataAuthorized"
+         class="   ff">
+        </google-pay-button>
+
+        <div id="paypalButton"></div>
+
+
+
+
+        <button class="btn-outline-danger btn-sm my-2 btn-block order-submit" (click)="placeorder()">Place order</button>
+      </div>
+      <!-- /Order Details -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /SECTION -->
+<div *ngIf="cartData.total <= 0;" class="text-center my-5">
+  <h4>Your Cart Is Empty</h4>
+  <button class="btn btn-primary btn-lg mt-3" routerLink="/">GO TO SHOP</button>
+</div>
+

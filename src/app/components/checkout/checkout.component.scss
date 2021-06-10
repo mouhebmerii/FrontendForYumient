@@ -1,0 +1,33 @@
+.section{
+  background-image: url("https://i.ibb.co/jVDgsNB/7743452e99a1bcf378df63a0b3984b42.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bx{
+  background-color: white;
+}
+.ff{
+  background-color: black;
+  display: block;
+  margin-bottom: 3%;
+  text-align: center;
+}
+h1{
+  color: blue;
+}
+input.ng-invalid{
+  border-left: 5px solid red;
+}
+input.ng-valid{
+  border-left: 5px solid green;
+}
+.error {
+  color: red;
+}
+#button1 , #button2 {
+  display:inline-block;
+  /* additional code */
+}
+

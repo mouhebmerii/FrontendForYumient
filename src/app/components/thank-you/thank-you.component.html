@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron text-center mb-3 mt-3">
+        <h1 class="display-3">Thank You!</h1>
+        <p class="lead"><strong>Your order has been received</strong> Please save your order number to Track it.</p>
+        <hr>
+        <p>
+
+        <p>Order Number : <strong>{{orderId}}</strong></p>
+        <button class="btn btn-success tooltiptext" id="myTooltip" (click)="copyMessage('This goes to Clipboard')" value="click to copy"  onmouseout="outFunc()">✂️Copy</button>
+        <input type="text" value={{orderId}} id="myInput">
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>Country</th>
+          <th>Phone</th>
+          <th>Order Details</th>
+          <th>Description</th>
+          <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr class="border-0">
+          <td>{{orderId}}</td>
+          <td>{{fname}}</td>
+          <td>{{lname}}</td>
+          <td>{{adress}}</td>
+          <td>{{country}}</td>
+          <td>{{phone}}</td>
+          <td>{{order_details}}</td>
+          <td>{{description}}</td>
+          <td>{{cartTotal | currency:"EUR":"symbol"}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container bg-light">
+      <div class="col-md-12 text-center">
+        <a type="button" class="btn btn-primary mb-5" href="http://localhost/trackmyorders/" target="_blank">Track Your Order</a>
+        <a type="button" class="btn btn-warning ml-4 mb-5" onclick="window.print()">Print Your Order</a>
+      </div>
+    </div>
+  </div>
+</div>
